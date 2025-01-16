@@ -169,11 +169,13 @@ class DoubleStateButton(tk.Button):
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Игра в жизнь")
+    root.geometry("1007x590")
+
     if os.path.exists("images/image_logo1.ico"):
         root.wm_iconbitmap("images/image_logo1.ico")
     
     canvas = LifeGameCanvas(master=root, width=850, height=550, cell_size=10, camera_coef=3)
-    canvas.pack()
+    canvas.grid(row=0, column=0, sticky="n", columnspan=3, rowspan=3)
 
     cycle = Cycle(canvas)
     state_btn = DoubleStateButton(
@@ -186,21 +188,23 @@ if __name__ == "__main__":
             "text":"Закончить цикл",
             "bg":"red",
             "fg":"white"
+
         }
     )
-    state_btn.pack(side="right")
+    state_btn.grid(row=0, column=3, sticky="n")
 
     delay_entry = tk.Entry(master=root, width=5)
     delay_entry.insert(tk.END, "100")
-    delay_entry.pack(side="right")
+    delay_entry.grid(row=2, column=7)
     delay_btn = tk.Button(master=root, text="Установить задержку",
                           command=set_delay_event(cycle, delay_entry))
-    delay_btn.pack(side="right")
+    delay_btn.grid(row=2, column=3)
 
     act_btn = tk.Button(master=root, text="Следующий шаг",
                           command=cycle.start_by_steps)
-    act_btn.pack(side="right")
+    act_btn.grid(row=1, column=3, sticky='n')
 
 
     root.mainloop()
+
 
